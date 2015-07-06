@@ -1,0 +1,37 @@
+apply plugin: 'com.android.library'
+apply plugin: 'com.neenbedankt.android-apt'
+
+android {
+    compileSdkVersion 22
+    buildToolsVersion "22.0.1"
+
+    defaultConfig {
+        minSdkVersion 19
+        targetSdkVersion 22
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    packagingOptions {
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/NOTICE'
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+
+    compile project(':boxer-api')
+    apt project(':boxer-processor')
+
+    compile 'org.parceler:parceler-api:1.0.1'
+    apt 'org.parceler:parceler:1.0.1'
+
+    androidTestCompile 'com.android.support:support-annotations:22.2.0'
+    androidTestCompile 'com.fasterxml.jackson.core:jackson-databind:2.4.0'
+}
